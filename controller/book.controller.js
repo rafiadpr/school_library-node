@@ -13,6 +13,23 @@ exports.getAllBooks = async (request, response) => {
     })
 }
 
+exports.getBook = async (request, response) => {
+    const {id}  = request.params;
+    let book = await bookModel.findOne(
+        {
+            where: {
+                id
+            }
+        }
+    )
+    
+    return response.json({
+        success: true,
+        data: book,
+        message: `book loaded`
+    })
+}
+
 exports.findBooks = async (request, response) => {
     let keyword = request.body.keyword
     let books = await bookModel.findAll({

@@ -10,7 +10,7 @@ app.get("/", memberController.getAllMember)
 app.get("/:id", memberController.getMember)
 app.post("/", memberController.addMember)
 app.post("/find", [authorize], memberController.findMember)
-app.put("/:id", [authorize], memberController.updateMember)
+app.put("/:id", memberController.updateMember)
 app.put("/photo/:id", [authorize], memberController.photoMember)
 app.delete("/:id", memberController.deleteMember)
 module.exports = app

@@ -55,15 +55,15 @@ exports.addMember = (request, response) => {
         if (error){
             return response.json({message: error})
         }
-        // if(!request.file){
-        //     return response.json({message: `nothing to upload`})
-        // }
+        if(!request.file){
+            return response.json({message: `nothing to upload`})
+        }
         let newMember = {
             name: request.body.name,
             address: request.body.address,
             gender: request.body.gender,
             contact: request.body.contact,
-            // photo: request.file.filename
+            photo: request.file.filename
         }
         memberModel.create(newMember)
         .then(result => {
@@ -94,7 +94,6 @@ exports.updateMember = async (request, response) => {
             address: request.body.address,
             gender: request.body.gender,
             contact: request.body.contact,
-            photo: request.body.photo
         }
 
         if (request.file){
@@ -152,10 +151,12 @@ exports.deleteMember = async (request, response) => {
     let idMember = request.params.id
     const member = await memberModel.findOne({ where: { id: idMember } })
     const oldPhotomember = member.photo
-    const pathPhoto = path.join(__dirname, `../photo`,oldPhotomember)
+    if (oldPhotomember !== null){
+        const pathPhoto = path.join(__dirname, `../photo`,oldPhotomember)
         if (fs.existsSync(pathPhoto)) {
             fs.unlink(pathPhoto, error => console.log(error))
         }
+    }
         memberModel.destroy({where: {id: idMember}})
         .then(result => {
             return response.json({

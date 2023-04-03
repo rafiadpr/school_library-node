@@ -6,6 +6,7 @@ const bookController = require(`../controller/book.controller`)
 const {midOne} = require(`../middlewares/simple-middleware`)
 
 app.get("/", bookController.getAllBooks)
+app.get("/:id", bookController.getBook)
 app.post("/find", bookController.findBooks)
 app.post("/", bookController.addBooks)
 app.put("/:id", bookController.updateBook)
