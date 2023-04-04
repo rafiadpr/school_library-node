@@ -55,9 +55,9 @@ exports.addBooks = (request, response) => {
         if (error){
             return response.json({message: error})
         }
-        // if(!request.file){
-        //     return response.json({message: `nothing to upload`})
-        // }
+        if(!request.file){
+            return response.json({message: `nothing to upload`})
+        }
         let newBook = {
             isbn: request.body.isbn,
             title: request.body.title,
@@ -65,7 +65,7 @@ exports.addBooks = (request, response) => {
             publisher: request.body.publisher,
             category: request.body.category,
             stock: request.body.stock,
-            // cover: request.file.filename
+            cover: request.file.filename
         }
         bookModel.create(newBook)
         .then(result => {
