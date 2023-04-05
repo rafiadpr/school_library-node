@@ -53,11 +53,12 @@ exports.findMember = async (request, response) => {
 exports.addMember = (request, response) => {
     upload(request, response, async error => {
         if (error){
-            return response.json({message: error})
+            return response.json({ success: false, message: error });
         }
         if(!request.file){
             return response.json({message: `nothing to upload`})
         }
+        
         let newMember = {
             name: request.body.name,
             address: request.body.address,
@@ -85,7 +86,7 @@ exports.addMember = (request, response) => {
 exports.updateMember = async (request, response) => {
     upload(request, response, async error => {
         if (error){
-            return response.json({message: error})
+            return response.json({success: false, message: error})
         }
         let id = request.params.id
 
@@ -116,6 +117,8 @@ exports.updateMember = async (request, response) => {
         })
         .catch(error => {
             return response.json({
+                success: false,
+                message: `Data member has not been updated`
             })
         })
     })

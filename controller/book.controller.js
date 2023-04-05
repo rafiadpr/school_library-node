@@ -87,7 +87,7 @@ exports.addBooks = (request, response) => {
 exports.updateBook = async (request, response) => {
     upload(request, response, async error => {
         if (error){
-            return response.json({message: error})
+            return response.json({success: false, message: error})
         }
         let id = request.params.id
 
@@ -98,7 +98,7 @@ exports.updateBook = async (request, response) => {
             publisher: request.body.publisher,
             category: request.body.category,
             stock: request.body.stock,
-            cover: request.body.cover,
+            // cover: request.body.cover,
         }
 
         if (request.file){
@@ -121,6 +121,8 @@ exports.updateBook = async (request, response) => {
         })
         .catch(error => {
             return response.json({
+                success: false,
+                message: `Data book has not been updated`
             })
         })
     })

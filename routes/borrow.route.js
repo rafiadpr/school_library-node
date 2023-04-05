@@ -6,7 +6,7 @@ const borrowController = require(`../controller/borrow.controller`)
 const {authorize} = require(`../controller/auth.controller`)
 const {validateBorrow} = require(`../middlewares/borrow-validation`)
 
-app.post("/", [authorize], [validateBorrow], borrowController.addBorrowing)
+app.post("/", borrowController.addBorrowing)
 app.put("/update/:id", [authorize], [validateBorrow], borrowController.updateBorrowing)
 app.delete("/:id", [authorize], borrowController.deleteBorrowing)
 app.get("/return/:id", [authorize], borrowController.returnBook)
